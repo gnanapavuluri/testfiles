@@ -1,0 +1,72 @@
+<form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+    <mat-card>
+        <mat-card-title>
+            Region/Country Form
+        </mat-card-title>
+        <mat-card-content>
+            <div class="row">
+                <div class="col-md-12">
+                    <mat-form-field class="full-width">
+                        <!-- <label for="category">Categories</label> -->
+                        <mat-select name="category" placeholder="Region" formControlName="categorySelect">
+                            <mat-option *ngFor="let category of categories$ | async; trackBy: ngForTrackByFn" [value]="category"> {{ category.label }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-12">&nbsp;</div>
+
+                <div class="col-md-12">
+                    <mat-form-field class="full-width">
+                        <!-- <label for="product">Products</label> -->
+                        <mat-select name="product" placeholder="Country" formControlName="productSelect">
+                            <mat-optgroup *ngFor="let group of products$ | async" [label]="group.category.label">
+                                <mat-option *ngFor="let product of group.products; trackBy: ngForTrackByFn" [value]="product">
+                                    {{ product.name }}
+                                </mat-option>
+                            </mat-optgroup>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-card-content>
+
+
+
+        <div class="col-md-12">&nbsp;</div>
+        <div class="col-md-12">
+            <mat-card-title *ngIf="this.orderForm.value.productSelect">
+                Country Details
+            </mat-card-title>
+            <table class="table" *ngIf="this.orderForm.value.productSelect">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Capital</th>
+                        <th scope="col">Population</th>
+                        <th scope="col">Currencies</th>
+                        <th scope="col">Flag</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">{{orderForm.value.productSelect.name}}</th>
+                        <td>{{orderForm.value.productSelect.capital}}</td>
+                        <td>{{orderForm.value.productSelect.population}}</td>
+                        <td>
+                            <div *ngFor="let currency of orderForm.value.productSelect.currencies">
+                                Currency Code: {{currency.code}}<br> Currency Name: {{currency.name}}<br> Currency Symbol: {{currency.symbol}}<br>
+                                <p>&nbsp;</p>
+                            </div>
+
+                        </td>
+                        <td><img src="{{orderForm.value.productSelect.flag}}" width=100 /></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+
+    </mat-card>
+</form>
