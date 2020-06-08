@@ -27,7 +27,7 @@
     "@ngrx/store": "^5.2.0",
     "@ngrx/store-devtools": "^6.0.1",
     "core-js": "^2.5.4",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.13",
     "rxjs": "^6.0.0",
     "rxjs-compat": "^6.2.1",
     "zone.js": "^0.8.26"
